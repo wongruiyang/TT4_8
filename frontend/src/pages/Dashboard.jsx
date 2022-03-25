@@ -4,7 +4,7 @@ import {useSelector, useDispatch } from 'react-redux'
 import GoalItem from '../components/GoalItem'
 import Spinner from '../components/Spinner'
 import { getGoals, reset } from '../features/goals/goalSlice'
-import MenuButton from '../components/MenuButton'
+import MenuButtons from '../components/MenuButtons'
 
 function Dashboard() {
   const navigate = useNavigate()
@@ -41,7 +41,7 @@ function Dashboard() {
       <p>Menu</p>
     </section>
 
-    <MenuButton/>
+    <MenuButtons/>
   </>
 }
 

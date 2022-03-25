@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {createGoal} from '../features/goals/goalSlice'
 
-function MenuButton(props) {
+function MenuButtons(props) {
     const [text,setText] = useState('')
 
     const dispatch = useDispatch()
@@ -44,4 +44,4 @@ function MenuButton(props) {
   )
 }
 
-export default MenuButton
+export default MenuButtons
