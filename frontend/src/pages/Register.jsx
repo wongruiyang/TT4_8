@@ -19,7 +19,7 @@ function Register() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const {user, isLoading, isError, isSuccess, message} = useSelector(
+    const {customer, isLoading, isError, isSuccess, message} = useSelector(
         (state) => state.auth
     )
 
@@ -28,13 +28,13 @@ function Register() {
             toast.error(message)
         }
 
-        if(isSuccess || user) {
+        if(isSuccess || customer) {
             navigate('/')
         }
 
         dispatch(reset())
 
-    }, [user, isError, isSuccess, message, navigate, dispatch])
+    }, [customer, isError, isSuccess, message, navigate, dispatch])
 
     const onChange = (e) => {
         setFormData((prevState)=>({
@@ -49,13 +49,13 @@ function Register() {
         if (password !== password2){
             toast.error('Passwords do not match')
         } else {
-            const userData = {
+            const customerData = {
                 name,
                 email,
                 password,
             }
 
-          dispatch(register(userData))
+          dispatch(register(customerData))
         }
 
     }

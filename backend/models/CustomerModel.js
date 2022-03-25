@@ -5,7 +5,7 @@ const CustomerSchema = mongoose.Schema({
     CustomerId: {
         type: Number,
         required: true,
-        ref: 'User' 
+        ref: 'Customer' 
     },
 
     customer_name: {
@@ -26,6 +26,16 @@ const CustomerSchema = mongoose.Schema({
     balance: {
         type: Number,
         required: [true, ' Balance is missing']
+    },
+
+    email:{
+        type: String,
+        required: [true, 'Please add an email'],
+        unique: true
+    },
+    password:{
+        type: String,
+        required: [true, 'Please add a password']
     },
 
 },{
