@@ -58,7 +58,7 @@ const loginCustomer = asyncHandler(async (req,res) => {
     if (customer) {
         res.status(201).json({
             _id: customer.id,
-            customer_name: customer.name,
+            customer_name: customer.customer_name,
             token: generateToken(customer._id)
         })
         
