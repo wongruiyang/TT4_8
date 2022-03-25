@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
+    loan: {
+        
+    },
     name:{
         type: String,
         required: [true, 'Please add a name']
