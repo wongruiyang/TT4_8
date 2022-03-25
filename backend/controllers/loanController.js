@@ -21,8 +21,8 @@ const setLoan = asyncHandler(async (req, res) => {
     }
 
     const loan = await Loan.create({
-        text: req.body.text,
         user: req.user.id,
+        loan_amount = req.body.text
     })
 
     res.status(200).json(loan)
