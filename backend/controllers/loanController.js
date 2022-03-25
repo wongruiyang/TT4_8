@@ -6,7 +6,7 @@ const Customer = require('../models/CustomerModel')
 // @route GET /api/goals
 // @access Private
 const getLoans = asyncHandler(async (req, res) => {
-    const loans =await Loan.find({ customer: req.customer.id })
+    const loans =await Loan.find({ customer: req.params.CustomerId })
 
     res.status(200).json(loans)
 })
@@ -32,7 +32,7 @@ const setLoan = asyncHandler(async (req, res) => {
 // @route PUT /api/goals/:id
 // @access Private
 const updateLoan = asyncHandler(async (req, res) => {
-    const loan = await Loan.findById(req.params.customerId)
+    const loan = await Loan.findById(req.params.CustomerId)
 
     if(!loan){
         res.status(400)
@@ -52,7 +52,7 @@ const updateLoan = asyncHandler(async (req, res) => {
         throw new Error('User not authorized') 
     }
 
-    const updatedLoan = await Loan.findByIdAndUpdate(req.params.customerId, req.body, {
+    const updatedLoan = await Loan.findByIdAndUpdate(req.params.CustomerId, req.body, {
         new:true,
     })
 
@@ -77,14 +77,14 @@ const deleteLoan = asyncHandler(async (req, res) => {
     }
 
     // Make sure the logged in user matches the goal user
-    if(loan.customer.toString() !== req.customer.id){
+    if(loan.customer.toString() !== req.customer.CustomerId){
         res.status(401)
         throw new Error('User not authorized') 
     }
 
     await loan.remove()
 
-    res.status(200).json({ id: req.params.customerId })
+    res.status(200).json({ id: req.params.CustomerId })
 }) 
 
 module.exports = {
