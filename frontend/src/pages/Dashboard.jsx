@@ -20,7 +20,7 @@ function Dashboard() {
 
   return <>
     <section className = 'heading'>
-      <h1>{customer && customer.balance}</h1>
+      <h1>{customer.balance}</h1>
     
     </section>
 
