@@ -1,24 +1,24 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
-const User = require('../models/userModel')
+const Customer = require('../models/CustomerModel')
 
 // @desc Register new user
 // @route POST /api/users
 // @access Public
 
-const registerUser = asyncHandler(async (req,res) => {
-    const { name, email, password } = req.body
+const registerCustomer = asyncHandler(async (req,res) => {
+    const {customer_name, email, password } = req.body
     
-    if (!name || !email || !password){
+    if (!customer_name || !email || !password){
         res.status(400)
         throw new Error('Please add all fields')
     }
 
     //Check if user exists
-    const userExists = await User.findOne({email})
+    const customerExists = await Customer.findOne({email})
 
-    if(userExists){
+    if(customerExists){
         res.status(400)
         throw new Error('User already exists')
     }
@@ -28,18 +28,18 @@ const registerUser = asyncHandler(async (req,res) => {
     const hashedPassword = await bcrypt.hash(password, salt)
 
     //Create user
-    const user = await User.create({
-        name,
+    const customer = await Customer.create({
+        customer_name,
         email,
         password: hashedPassword,
     })
 
-    if (user) {
+    if (customer) {
         res.status(201).json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            token: generateToken(user._id)
+            _id: customer.id,
+            name: customer.name,
+            email: customer.email,
+            token: generateToken(customer._id)
         })
     } else {
         res.status(400)
@@ -53,18 +53,18 @@ const registerUser = asyncHandler(async (req,res) => {
 // @route POST /api/users/login
 // @access Public
 
-const loginUser = asyncHandler(async (req,res) => {
+const loginCustomer = asyncHandler(async (req,res) => {
     const {email,password} = req.body
 
     // Check for user email
-    const user = await User.findOne({email})
+    const customer = await Customer.findOne({email})
 
-    if (user && (await bcrypt.compare(password, user.password))){
+    if (customer && (await bcrypt.compare(password, customer.password))){
         res.json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            token: generateToken(user._id)  
+            _id: customer.id,
+            name: customer.name,
+            email: customer.email,
+            token: generateToken(customer._id)  
         })
     } else {
         res.status(400)
@@ -91,7 +91,7 @@ const generateToken = (id) => {
 }
 
 module.exports = {
-    registerUser,
-    loginUser,
+    registerCustomer,
+    loginCustomer,
     getMe,
 }

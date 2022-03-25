@@ -8,18 +8,18 @@ import Spinner from '../components/Spinner'
 
 function Register() {
     const [formData, setFormData] = useState({
-        name: '',
+        customer_name: '',
         email: '',
         password: '',
         password2: ''
     })
 
-    const {name, email, password, password2} = formData
+    const {customer_name, email, password, password2} = formData
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const {user, isLoading, isError, isSuccess, message} = useSelector(
+    const {customer, isLoading, isError, isSuccess, message} = useSelector(
         (state) => state.auth
     )
 
@@ -28,13 +28,13 @@ function Register() {
             toast.error(message)
         }
 
-        if(isSuccess || user) {
+        if(isSuccess || customer) {
             navigate('/')
         }
 
         dispatch(reset())
 
-    }, [user, isError, isSuccess, message, navigate, dispatch])
+    }, [customer, isError, isSuccess, message, navigate, dispatch])
 
     const onChange = (e) => {
         setFormData((prevState)=>({
@@ -49,13 +49,13 @@ function Register() {
         if (password !== password2){
             toast.error('Passwords do not match')
         } else {
-            const userData = {
-                name,
+            const customerData = {
+                customer_name,
                 email,
                 password,
             }
 
-          dispatch(register(userData))
+          dispatch(register(customerData))
         }
 
     }
@@ -80,9 +80,9 @@ function Register() {
                     <input
                       type="text"
                       className="form-control"
-                      id = 'name'
-                      name = 'name' 
-                      value = {name} 
+                      id = 'customer_name'
+                      name = 'customer_name' 
+                      value = {customer_name} 
                       placeholder = 'Enter your name'
                       onChange = {onChange}
                     />
