@@ -10,7 +10,7 @@ function Dashboard() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const {user} = useSelector((state)=> state.auth)
+  const {customer} = useSelector((state)=> state.auth)
   const {goals, isLoading, isError, message} = useSelector((state)=>
   state.goals)
 
@@ -18,7 +18,7 @@ function Dashboard() {
     if(isError){
       console.log(message);
     }
-    if (!user){
+    if (!customer){
       navigate('/login')
     }
     
@@ -29,7 +29,7 @@ function Dashboard() {
     }
  
 
-  },[user, navigate, isError, message, dispatch])
+  },[customer, navigate, isError, message, dispatch])
 
   if (isLoading){
     return <Spinner />
@@ -37,7 +37,7 @@ function Dashboard() {
 
   return <>
     <section className = 'heading'>
-      <h1>Welcome {user && user.name}</h1>
+      <h1>Welcome {customer && customer.customer_name}</h1>
       <p>Goals Dashboard</p>
     </section>
 

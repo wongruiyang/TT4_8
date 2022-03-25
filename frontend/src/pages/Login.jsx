@@ -17,7 +17,7 @@ function Login() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const {user, isLoading, isError, isSuccess, message} = useSelector(
+    const {customer, isLoading, isError, isSuccess, message} = useSelector(
         (state) => state.auth
     )
 
@@ -26,13 +26,13 @@ function Login() {
             toast.error(message)
         }
 
-        if(isSuccess || user) {
+        if(isSuccess || customer) {
             navigate('/')
         }
 
         dispatch(reset())
 
-    }, [user, isError, isSuccess, message, navigate, dispatch])
+    }, [customer, isError, isSuccess, message, navigate, dispatch])
 
     const onChange = (e) => {
         setFormData((prevState)=>({
@@ -45,11 +45,11 @@ function Login() {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        const userData ={
+        const customerData ={
             email,
             password
         }
-        dispatch(login(userData))
+        dispatch(login(customerData))
     }
 
     if(isLoading){
