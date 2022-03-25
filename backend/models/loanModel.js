@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 
 const loanSchema = mongoose.Schema({
 
-    user: {
+    customer: {
         type: Number,
         required: true,
-        ref: 'User'
+        ref: 'Customer'
     },
 
     loan_amount: {
