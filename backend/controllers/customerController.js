@@ -53,13 +53,12 @@ const loginCustomer = asyncHandler(async (req,res) => {
     const {customer_name} = req.body
 
     // Check for user email
-    const customer = await Customer.findOne({email})
+    const customer = await Customer.findOne({customer_name})
 
     if (customer) {
         res.status(201).json({
             _id: customer.id,
             customer_name: customer.name,
-            email: customer.email,
             token: generateToken(customer._id)
         })
         
@@ -82,12 +81,6 @@ const getMe = asyncHandler(async (req,res) => {
     const customer = await Customer.findOne({customer_name})
 
 
-})
-
-const getLoans = asyncHandler(async (req, res) => {
-    const loans =await Loan.find({ customer: req.customer.CustomerId })
-
-    res.status(200).json(loans)
 })
 
 
