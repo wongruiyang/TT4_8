@@ -39,6 +39,7 @@ function Dashboard() {
     <section className = 'heading'>
       <h1>Welcome {user && user.name}</h1>
       <p>Menu</p>
+      <h3>Balance: $300</h3>
     </section>
 
     <MenuButtons/>
