@@ -4,8 +4,8 @@ const CustomerSchema = mongoose.Schema({
 
     CustomerId: {
         type: Number,
-        required: true,
-        ref: 'Customer' 
+        required: false,
+        ref: 'customers' 
     },
 
     customer_name: {
@@ -15,20 +15,20 @@ const CustomerSchema = mongoose.Schema({
 
     customer_phone: {
         type: Number,
-        required: [true, 'Phone number is missing']
+        required: [false, 'Phone number is missing']
     },
 
     customer_address: {
         type: String,
-        required: [true, 'Address is missing']
+        required: [false, 'Address is missing']
     },
 
     balance: {
         type: Number,
-        required: [true, ' Balance is missing']
+        required: [false, ' Balance is missing']
     },
 
-    email:{
+        email:{
         type: String,
         required: [true, 'Please add an email'],
         unique: true

@@ -8,7 +8,7 @@ const Customer = require('../models/CustomerModel')
 // @access Public
 
 const registerCustomer = asyncHandler(async (req,res) => {
-    const {customer_name, email, password } = req.body
+    const {customer_name, email, password} = req.body
     
     if (!customer_name || !email || !password){
         res.status(400)
@@ -37,7 +37,7 @@ const registerCustomer = asyncHandler(async (req,res) => {
     if (customer) {
         res.status(201).json({
             _id: customer.id,
-            name: customer.name,
+            customer_name: customer.name,
             email: customer.email,
             token: generateToken(customer._id)
         })
@@ -59,16 +59,17 @@ const loginCustomer = asyncHandler(async (req,res) => {
     // Check for user email
     const customer = await Customer.findOne({email})
 
-    if (customer && (await bcrypt.compare(password, customer.password))){
-        res.json({
+    if (customer) {
+        res.status(201).json({
             _id: customer.id,
-            name: customer.name,
+            customer_name: customer.name,
             email: customer.email,
-            token: generateToken(customer._id)  
+            token: generateToken(customer._id)
         })
+        
     } else {
         res.status(400)
-        throw new Error('Invalid credentials')      
+        throw new Error('Invalid user data')
     }
 
     res.json({message: 'Login User'})

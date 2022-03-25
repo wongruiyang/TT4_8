@@ -11,10 +11,14 @@ function Register() {
         customer_name: '',
         email: '',
         password: '',
-        password2: ''
+        password2: '',
+        balance:0,
+        customer_address:'',
+        customer_phone:0,
+        CustomerId:0
     })
 
-    const {customer_name, email, password, password2} = formData
+    const {customer_name, email, password, password2, ba} = formData
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
