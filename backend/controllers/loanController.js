@@ -1,12 +1,12 @@
 const asyncHandler = require('express-async-handler')
 const Loan = require('../models/loanModel')
-const User = require('../models/userModel')
+const Customer = require('../models/CustomerModel')
 
 // @desc Get goals
 // @route GET /api/goals
 // @access Private
 const getLoans = asyncHandler(async (req, res) => {
-    const loans =await Loan.find({ user: req.user.id })
+    const loans =await Loan.find({ customer: req.customer.id })
 
     res.status(200).json(loans)
 })
@@ -21,8 +21,8 @@ const setLoan = asyncHandler(async (req, res) => {
     }
 
     const loan = await Loan.create({
-        text: req.body.text,
-        user: req.user.id,
+        customer: req.customer.id,
+        loan_amount: req.body.text
     })
 
     res.status(200).json(loan)
@@ -32,7 +32,7 @@ const setLoan = asyncHandler(async (req, res) => {
 // @route PUT /api/goals/:id
 // @access Private
 const updateLoan = asyncHandler(async (req, res) => {
-    const loan = await Loan.findById(req.params.id)
+    const loan = await Loan.findById(req.params.customerId)
 
     if(!loan){
         res.status(400)
@@ -41,18 +41,18 @@ const updateLoan = asyncHandler(async (req, res) => {
 
     
     // Check for user
-    if(!req.user){
+    if(!req.customer){
         res.status(401)
         throw new Error('User not found')
     }
 
     // Make sure the logged in user matches the goal user
-    if(loan.user.toString() !== req.user.id){
+    if(loan.customer.toString() !== req.customer.id){
         res.status(401)
         throw new Error('User not authorized') 
     }
 
-    const updatedLoan = await Loan.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedLoan = await Loan.findByIdAndUpdate(req.params.customerId, req.body, {
         new:true,
     })
 
@@ -63,7 +63,7 @@ const updateLoan = asyncHandler(async (req, res) => {
 // @route DELETE /api/goals/:id
 // @access Private
 const deleteLoan = asyncHandler(async (req, res) => {
-    const loan = await Loan.findById(req.params.id)
+    const loan = await Loan.findById(req.params.customerId)
 
     if(!loan){
         res.status(400)
@@ -71,20 +71,20 @@ const deleteLoan = asyncHandler(async (req, res) => {
     }
 
     // Check for user
-    if(!req.user){
+    if(!req.customer){
         res.status(401)
         throw new Error('User not found')
     }
 
     // Make sure the logged in user matches the goal user
-    if(loan.user.toString() !== req.user.id){
+    if(loan.customer.toString() !== req.customer.id){
         res.status(401)
         throw new Error('User not authorized') 
     }
 
     await loan.remove()
 
-    res.status(200).json({ id: req.params.id })
+    res.status(200).json({ id: req.params.customerId })
 }) 
 
 module.exports = {
