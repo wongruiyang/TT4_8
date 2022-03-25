@@ -4,9 +4,8 @@ import {useSelector, useDispatch } from 'react-redux'
 import GoalItem from '../components/GoalItem'
 import Spinner from '../components/Spinner'
 import { getGoals, reset } from '../features/goals/goalSlice'
-import MenuButton from '../components/MenuButton'
 
-function Dashboard() {
+function History() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -38,11 +37,19 @@ function Dashboard() {
   return <>
     <section className = 'heading'>
       <h1>Welcome {user && user.name}</h1>
-      <p>Menu</p>
+      <p>Loans/Payment History</p>
     </section>
 
-    <MenuButton/>
+    <section className="content">
+      {goals.length > 0 ? (
+        <div className="goals">
+          {goals.map((goal)=>(
+            <GoalItem key = {goal._id} goal = {goal} />
+          ))}
+        </div>
+      ) : (<h3> You do not have any loan/payment history in this bank </h3>)}
+    </section>
   </>
 }
 
-export default Dashboard
+export default History

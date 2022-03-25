@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {createGoal} from '../features/goals/goalSlice'
 
-function GoalForm() {
+function MenuButton(props) {
     const [text,setText] = useState('')
 
     const dispatch = useDispatch()
@@ -23,11 +23,6 @@ function GoalForm() {
                 <input type = 'text' name = 'text' id='text' 
                 value ={text} onChange = {(e)=>setText(e.target.value)}/>
             </div>
-            <div className='form-group'>
-                <label htmlFor='text'>Goal</label>
-                <input type = 'text' name = 'text' id='text' value =
-                {text} onChange = {(e)=>setText(e.target.value)}/>
-            </div>
             <div className="form-group">
                 <button className="btn btn-block" type = 'getloan'>
                     Get Loan
@@ -38,10 +33,15 @@ function GoalForm() {
                     Make Payment
                 </button>
             </div>
-
         </form>
+        <div className="form-group">
+            <button className="btn btn-block" type = 'seehistory' onClick={navigate("/history",{replace: true})}>
+                See Loan/Payment History
+            </button>
+        </div>
+        
     </section>
   )
 }
 
-export default GoalForm
+export default MenuButton

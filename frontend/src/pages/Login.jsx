@@ -62,7 +62,7 @@ function Login() {
                 <FaSignInAlt /> Login
             </h1>
             <p>
-                Login and start setting goals
+                Login and start managing your loans
             </p>
         </section>
 
