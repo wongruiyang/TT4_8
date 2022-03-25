@@ -8,37 +8,33 @@ const Customer = require('../models/CustomerModel')
 // @access Public
 
 const registerCustomer = asyncHandler(async (req,res) => {
-    const {customer_name, email, password} = req.body
+    const {customer_name} = req.body
     
-    if (!customer_name || !email || !password){
+    if (!customer_name){
         res.status(400)
         throw new Error('Please add all fields')
     }
 
     //Check if user exists
-    const customerExists = await Customer.findOne({email})
+    const customerExists = await Customer.findOne({customer_name})
 
     if(customerExists){
         res.status(400)
         throw new Error('User already exists')
     }
 
-    //Hash password
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
-
+  
     //Create user
     const customer = await Customer.create({
         customer_name,
-        email,
-        password: hashedPassword,
+
     })
 
     if (customer) {
         res.status(201).json({
             _id: customer.id,
             customer_name: customer.name,
-            email: customer.email,
+           
             token: generateToken(customer._id)
         })
     } else {
@@ -54,7 +50,7 @@ const registerCustomer = asyncHandler(async (req,res) => {
 // @access Public
 
 const loginCustomer = asyncHandler(async (req,res) => {
-    const {email,password} = req.body
+    const {customer_name} = req.body
 
     // Check for user email
     const customer = await Customer.findOne({email})
