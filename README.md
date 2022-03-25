@@ -1,1 +1,7 @@
-# TT4_8
+npm install 
+
+cd frontend
+
+npm install
+
+npm run dev in root 
