@@ -76,6 +76,7 @@ const loginCustomer = asyncHandler(async (req,res) => {
 
 const getMe = asyncHandler(async (req,res) => {
     const {customer_name} = req.body
+    // console.log(req.body)
 
     // Check for user email
     const customer = await Customer.findOne({customer_name})
